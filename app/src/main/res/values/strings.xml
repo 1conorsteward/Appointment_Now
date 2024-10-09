@@ -1,0 +1,85 @@
+<resources>
+
+    <!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    strings.xml
+        This file defines string resources for the AppointmentNow application.
+        These strings are used throughout the app to display text in various user interface components.
+        By defining strings in this centralized resource file, it is easier to manage and update text in the app,
+        ensuring consistency across the application and supporting localization efforts for multiple languages.
+
+        Key Features:
+        - Centralizes text definitions for reuse across the app.
+        - Supports consistent language usage and ease of updates.
+        - Enables localization for different languages.
+
+    Issues: No known issues
+    -->
+
+    <!-- General app name and labels -->
+    <string name="app_name">Appointment Now</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="say_hello">Say Hello</string>
+
+    <!-- Permission-related strings -->
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="sms_permission_info">This app requires SMS permission to send notifications.</string>
+    <string name="ask_permission">Grant SMS Permission</string>
+
+    <!-- Buttons and labels for adding and managing events -->
+    <string name='add_event'>Add Event</string>
+    <string name='edit'>Edit</string>
+    <string name='delete'>Delete</string>
+    <string name="save_event">Save Appointment</string>
+    <string name="export_to_pdf">Export to PDF</string>
+
+    <!-- User input labels (username, password, etc.) -->
+    <string name='username'>Your Username</string>
+    <string name='password'>Your Password</string>
+    <string name='login'>Login</string>
+    <string name='create_account'>Create Account</string>
+    <string name='email'>Your Email</string>
+    <string name='register'>Create Account</string>
+    <string name='re_enter_password'>Re-Enter Your Password</string>
+
+    <!-- Labels for SMS notifications -->
+    <string name='sms_notifications'>Would you like to receive SMS notifications?</string>
+    <string name="sms_permission">SMS Permissions</string>
+
+    <!-- Appointment-related labels -->
+    <string name="patient_name">Patient Name</string>
+    <string name="doctor_name">Doctor Name</string>
+    <string name="appointment_date">Date of Appointment yyyy-MM-dd</string>
+    <string name="appointment_notes">Notes</string>
+    <string name="appointment_location">Location of Appointment</string>
+    <string name="appointment_status">Appointment Status</string>
+    <string name="event_subtitle">Event Subtitle</string>
+    <string name="event_title">Event Title</string>
+    <string name="event_status"></string> <!-- Empty string placeholder for event status -->
+
+    <!-- Messages and feedback for user actions -->
+    <string name="password_fail">Invalid username or password.</string>
+    <string name="all_fields">Please fill in all fields</string>
+    <string name="password_mismatch">Passwords do not match</string>
+    <string name="register_fail">Registration failed, try again</string>
+    <string name="event_not_found">Event Not Found</string>
+
+    <!-- Navigation and miscellaneous strings -->
+    <string name="back_button_description">Back</string>
+    <string name="logout">Logout</string>
+    <string name="view_history">View History</string>
+
+    <!-- General strings for location, notes, and status -->
+    <string name="location">location</string>
+    <string name="notes">notes</string>
+    <string name="status">status</string>
+    <string name="add_pdf">Add PDF</string>
+    <string name="close">Close</string>
+    <string name="search_by_patient_name">Search by patient name</string>
+
+</resources>

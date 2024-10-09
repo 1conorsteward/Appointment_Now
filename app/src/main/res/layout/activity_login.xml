@@ -1,0 +1,81 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    activity_login.xml
+
+    This layout defines the user interface for the login screen in the AppointmentNow application.
+    It contains:
+    - A LinearLayout that holds fields for the username and password.
+    - A login button for submitting the login credentials.
+    - A create account button for navigating to the account creation screen.
+
+    Key Features:
+    - Fields are centered on the screen for visual balance.
+    - Input fields for the username and password with appropriate hints and input types.
+    - Buttons styled with the app's primary color and selectable background for user interaction.
+
+    Issues: No known issues
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Layout for centered fields -->
+    <LinearLayout
+        android:id="@+id/center_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:padding="32dp"
+        tools:ignore="UselessParent">
+
+        <!-- Username Field -->
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/username"
+            android:inputType="text"
+            android:minHeight="48dp" />
+
+        <!-- Password Field -->
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/primary_purple"
+            android:textColor="@android:color/black" />
+
+        <!-- Create Account Button -->
+        <Button
+            android:id="@+id/create_account_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_account"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/primary_purple"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+</RelativeLayout>

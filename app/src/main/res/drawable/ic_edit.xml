@@ -1,0 +1,28 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    ic_edit.xml
+
+    This file defines a vector drawable resource in XML format for Android applications. Vector drawables
+    allow for resolution-independent graphics that scale well across different screen sizes and densities
+    without losing quality. This specific vector defines a shape using path data and specifies properties
+    such as transparency (alpha), dimensions, tint color, and the viewport for rendering the vector.
+
+    Key Features:
+    - Defines a vector drawable with an alpha transparency level of 72%.
+    - Sets the dimensions (width and height) of the vector in density-independent pixels (dp).
+    - Utilizes a viewport that defines the coordinate system within which the path is drawn.
+    - Uses a tint color and a white fill color to control the appearance of the vector.
+    - The path data describes the specific shape to be drawn within the viewport.
+
+    Issues: No known issues
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:alpha="0.72" android:height="42dp" android:tint="#352727" android:viewportHeight="36" android:viewportWidth="36" android:width="42dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/>
+    
+</vector>

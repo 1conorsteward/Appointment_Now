@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    dialog_add_event.xml
+
+    This layout defines the user interface for adding or editing an event (appointment) in the AppointmentNow application.
+    It includes:
+    - A top bar with the application name and a close button.
+    - Input fields for entering patient name, doctor name, appointment date, status, notes, and location.
+    - A button to save the event.
+
+    Key Features:
+    - A clean and simple form to capture appointment details.
+    - Top bar with a close button for easy navigation.
+    - Input validation and appropriate widgets for user interaction.
+
+    Issues: No known issues
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Top Bar with Title and Close Button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_purple"
+        android:padding="16dp">
+
+        <!-- Menu Text -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+
+        <!-- Close menu button -->
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/close"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@android:color/white"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+                <!-- Patient Name Field -->
+    <EditText
+        android:id="@+id/patient_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/patient_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+                <!-- Doctor Name Field -->
+    <EditText
+        android:id="@+id/doctor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/doctor_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+                <!-- Appointment Date Field -->
+    <EditText
+        android:id="@+id/appointment_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/appointment_date"
+        android:inputType="datetime"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+                <!-- Appointment Status Dropdown -->
+    <Spinner
+        android:id="@+id/appointment_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/appointment_status_options"
+        android:hint="@string/appointment_status"
+        android:minHeight="48dp" />
+
+                <!-- Notes Field -->
+    <EditText
+        android:id="@+id/appointment_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/appointment_notes"
+        android:inputType="textShortMessage"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+                <!-- Appointment Location Field -->
+    <EditText
+        android:id="@+id/appointment_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/appointment_location"
+        android:inputType="textShortMessage"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+                <!-- Add PDF Button-->
+                <Button
+                    android:id="@+id/button_add_pdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/add_pdf"
+                    android:layout_gravity="center"/>
+
+
+                <!-- Save Appointment Button -->
+                <Button
+                    android:id="@+id/save_event_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/save_event" />
+            </LinearLayout>

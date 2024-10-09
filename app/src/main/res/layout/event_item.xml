@@ -1,0 +1,92 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    event_item.xml
+
+    Event item layout used in a list or grid for displaying individual event information (appointment).
+    This layout includes the following components:
+    - Event title (Patient Name)
+    - Event subtitle (Doctor Name)
+    - Event status (such as "Scheduled" or "Completed")
+    - Edit and Delete buttons to manage the event.
+
+    Key Features:
+    - Clear and easy-to-read display of event details.
+    - Buttons for quick actions (edit and delete).
+    - Status information displayed prominently alongside the event details.
+
+    Issues: No known issues
+-->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Event Title (Patient Name) -->
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/event_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true" />
+
+    <!-- Event Subtitle (Doctor Name) -->
+    <TextView
+        android:id="@+id/event_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/event_subtitle"
+        android:textSize="16sp"
+        android:layout_below="@id/event_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="4dp" />
+
+    <!-- Event Status (to the right of Title and Subtitle) -->
+
+    <!-- Edit Event Button -->
+
+    <TextView
+        android:id="@+id/event_status"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="33dp"
+        android:layout_toEndOf="@id/event_title"
+        android:text="@string/event_status"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/edit_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/edit"
+        android:src="@drawable/ic_edit"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <!-- Delete Event Button -->
+    <ImageButton
+        android:id="@+id/delete_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_event_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/ic_delete"
+        tools:ignore="TouchTargetSizeCheck" />
+
+</RelativeLayout>

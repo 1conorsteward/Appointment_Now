@@ -1,0 +1,98 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    activity_event_display.xml
+
+    This layout file defines the user interface for displaying a list of events in the EventDisplayActivity.
+    The layout is a RelativeLayout that contains:
+    - A top bar with buttons for logging out, managing SMS permissions, and accessing the event history.
+    - A GridView for listing the events.
+    - A button at the bottom to add a new event.
+
+    Key Features:
+    - The top bar includes buttons for logging out, viewing SMS permissions, and accessing history.
+    - The GridView allows the user to see the list of events in a vertical layout.
+    - The Add Event button provides a quick way to add new events.
+
+    Issues: No known issues
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Top bar with app name and SMS permission button -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_purple"
+        android:padding="16dp">
+
+        <!-- Logout button on the top left -->
+        <ImageButton
+            android:id="@+id/action_logout"
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_logout"
+            android:contentDescription="@string/logout"
+            app:tint="@android:color/white" />
+
+        <!-- SMS permission button on the top right -->
+        <ImageButton
+            android:id="@+id/sms_permission_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_sms"
+            android:contentDescription="@string/sms_permission"
+            app:tint="@android:color/white" />
+
+        <!-- History Button to the left of the SMS Permission button -->
+        <ImageButton
+            android:id="@+id/history_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toStartOf="@id/sms_permission_button"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/ic_history"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/view_history"
+            app:tint="@android:color/white" />
+    </RelativeLayout>
+
+
+    <!-- GridView for displaying events -->
+    <GridView
+        android:id="@+id/event_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/top_bar"
+        android:layout_above="@id/add_event_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:horizontalSpacing="16dp"
+        android:verticalSpacing="8dp"
+        android:numColumns="1"
+        android:padding="8dp" />
+
+    <!-- Add Event Button -->
+    <Button
+        android:id="@+id/add_event_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/light_purple"
+        android:text="@string/add_event"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

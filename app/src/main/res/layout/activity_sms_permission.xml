@@ -1,0 +1,84 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    activity_sms_permission.xml
+
+    This layout file defines the user interface for the SMS Permission screen in the AppointmentNow application.
+    It provides:
+    - A top bar with a title and close button.
+    - A central area displaying SMS permission information with a toggle switch for enabling or disabling the permission.
+
+    Key Features:
+    - The top banner contains the app name and a close button for easy navigation.
+    - A message explaining SMS permission with a toggle to manage the permission state.
+
+    Issues: No known issues
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Top Banner with Title and Close Button -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_purple"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/close"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@android:color/white"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+    <!-- Centered Container for SMS Permission Info and Toggle -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal">
+
+        <!-- SMS Permissions Notification -->
+        <TextView
+            android:id="@+id/sms_permission_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sms_permission_info"
+            android:textSize="18sp"
+            android:padding="16dp" />
+
+        <!-- SMS Permissions Toggle -->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/permission_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ask_permission"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

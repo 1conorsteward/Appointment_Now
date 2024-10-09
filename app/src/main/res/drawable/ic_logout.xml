@@ -1,0 +1,27 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    ic_logout.xml
+
+    This file defines a vector drawable that represents a back arrow icon in an Android application. The vector is drawn with
+    auto-mirroring enabled, making it suitable for right-to-left (RTL) layouts. The arrow is white and points to the left, typically
+    used for navigating back within the app's activities or fragments. The drawable includes a back arrow shape and an icon resembling
+    a square to represent a page or screen.
+
+    Key Features:
+    - Defines a vector drawable for a back arrow icon, useful for navigation.
+    - Arrow shape is created using path data and styled with a white fill color.
+    - The vector is set to auto-mirror for supporting right-to-left layouts.
+    - The dimensions are set to 48dp by 48dp for flexible sizing in different UI components.
+
+    Issues: No known issues
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="48dp" android:tint="#FFFFFF" android:viewportHeight="24" android:viewportWidth="24" android:width="48dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M17,7l-1.41,1.41L18.17,11H8v2h10.17l-2.58,2.58L17,17l5,-5zM4,5h8V3H4c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h8v-2H4V5z"/>
+    
+</vector>

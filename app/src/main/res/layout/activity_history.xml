@@ -1,0 +1,65 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    activity_history.xml
+
+    This layout defines the user interface for displaying the history of completed events in the HistoryActivity.
+    It contains:
+    - A top bar with a close button to exit the activity.
+    - A search field for filtering completed events by patient name.
+    - A GridView that displays the completed events in a single-column format.
+
+    Key Features:
+    - Allows users to filter completed events based on a search term.
+    - Displays a list of completed events in a vertical scrolling format.
+    - Provides an easy way to close the activity via the top bar.
+
+    Issues: No known issues
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!--Top bar with close button-->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_purple"
+        android:padding="16dp">
+
+        <!-- Close button aligned to the right -->
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:contentDescription="@string/close"
+            app:tint="@android:color/white" />
+    </RelativeLayout>
+
+    <!-- Search field placed below the top bar -->
+    <EditText
+        android:id="@+id/search_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_by_patient_name"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <!-- GridView for completed events placed below the search bar -->
+    <GridView
+        android:id="@+id/completed_events_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1" />
+</LinearLayout>

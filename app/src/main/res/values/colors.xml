@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+        colors.xml
+
+        This file defines color resources for the AppointmentNow application.
+        These colors are used throughout the app to maintain consistent styling
+        and branding across different UI components. By defining colors in this
+        centralized resource file, it is easier to manage and update the color scheme
+        of the app in one place.
+
+        Key Features:
+        - Centralizes color definitions for reuse across the app.
+        - Supports consistent branding and visual design.
+        - Simplifies future updates to the color scheme.
+
+    Issues: No known issues
+    -->
+
+    <!-- Primary purple used for main branding elements and backgrounds -->
+    <color name="primary_purple">#a834eb</color>
+
+    <!-- Light purple used for highlights, buttons, and secondary backgrounds -->
+    <color name="light_purple">#d6a8ff</color>
+
+    <!-- Dark purple used for text or accents in headers or UI elements -->
+    <color name="dark_purple">#7a1cb8</color>
+
+    <!-- Complementary yellow used for highlights or complementary UI elements -->
+    <color name="complementary_yellow">#ffdf33</color>
+
+    <!-- Soft gray used for background shades or subtle dividers -->
+    <color name="soft_gray">#e0e0e0</color>
+
+    <!-- Dark gray used for text or contrasting UI elements against lighter backgrounds -->
+    <color name="dark_gray">#333333</color>
+
+    <!-- Accent blue used for active or selected elements like buttons and icons -->
+    <color name="accent_blue">#4da6ff</color>
+
+    <!-- Black used for text or other UI elements that require high contrast -->
+    <color name="black">#000000</color>
+
+    <!-- White used for text, backgrounds, and icons on dark backgrounds -->
+    <color name="white">#FFFFFF</color>
+
+</resources>

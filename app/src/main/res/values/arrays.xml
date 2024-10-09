@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+        This file defines a string-array resource named "appointment_status_options" that contains
+        various statuses for appointments in the application. These statuses will be used in
+        dropdown menus (spinners) or other UI components where users can select the current status
+        of an appointment (e.g., whether the appointment is scheduled, completed, missed, etc.).
+
+        Key Features:
+        - Provides a list of appointment status options.
+        - Used in spinners or dropdown menus within the app.
+        - Simplifies managing and updating status options in one central location.
+
+    Issues: No known issues
+    -->
+
+    <!-- String array containing possible appointment statuses -->
+    <string-array name="appointment_status_options">
+
+        <!-- Scheduled: The appointment is scheduled and upcoming -->
+        <item>Scheduled</item>
+
+        <!-- Completed: The appointment has been successfully completed -->
+        <item>Completed</item>
+
+        <!-- Missed: The appointment was missed by the patient -->
+        <item>Missed</item>
+
+        <!-- Rescheduled: The appointment has been rescheduled to a different date or time -->
+        <item>Rescheduled</item>
+
+    </string-array>
+
+</resources>

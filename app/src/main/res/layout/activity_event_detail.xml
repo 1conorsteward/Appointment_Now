@@ -1,0 +1,125 @@
+<!--
+    Author: Conor Steward
+    Contact: 1conorsteward@gmail.com
+    Date Created: 10/8/24
+    Version: 2.1
+
+    activity_event_detail.xml
+
+    This layout file defines the user interface for the EventDetailActivity in the AppointmentNow application.
+    The layout is a RelativeLayout that contains:
+    - A top bar with a close button to exit the activity.
+    - Various TextViews for displaying details of the appointment event, such as the patient's name, doctor's name,
+      appointment date, status, notes, and location.
+    - A button to export the appointment details to a PDF.
+
+    Key Features:
+    - Top bar with a close button aligned to the right.
+    - TextViews for event details are stacked vertically, with margins for better spacing.
+    - A bottom-aligned button to export details to a PDF file.
+
+    Issues: No known issues
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Top Bar with close button -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_purple"
+        android:padding="16dp">
+
+        <!-- Close button in the top bar -->
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:contentDescription="Close"
+            app:tint="@android:color/white" />
+    </RelativeLayout>
+
+    <!-- Event Detail Fields -->
+
+    <!-- Text view for patient name -->
+    <TextView
+        android:id="@+id/patient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/patient_name"
+        android:textSize="18sp"
+        android:layout_below="@id/top_bar"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Text view for doctor name -->
+    <TextView
+        android:id="@+id/doctor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/doctor_name"
+        android:textSize="18sp"
+        android:layout_below="@id/patient_name"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Text view for appointment date -->
+    <TextView
+        android:id="@+id/appointment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment_date"
+        android:textSize="18sp"
+        android:layout_below="@id/doctor_name"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Text view for appointment status -->
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment_status"
+        android:textSize="18sp"
+        android:layout_below="@id/appointment_date"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Text view for notes -->
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment_notes"
+        android:textSize="18sp"
+        android:layout_below="@id/status"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Text view for location -->
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment_location"
+        android:textSize="18sp"
+        android:layout_below="@id/notes"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Export to PDF button -->
+    <Button
+        android:id="@+id/export_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/export_to_pdf"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary_purple"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
