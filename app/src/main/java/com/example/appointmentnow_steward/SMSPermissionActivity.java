@@ -1,128 +1,186 @@
 /*
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
-
-    SMSPermissionActivity.java
-
-    This activity is responsible for managing the SMS permission within the AppointmentNow application. It provides
-    a user interface that allows users to check, request, and manage the status of the SMS permission for sending messages.
-    The activity includes a toggle switch to enable or disable the permission and displays the current status of the SMS
-    permission.
-
-    Key Features:
-    - Checks if the SEND_SMS permission is granted.
-    - Requests SMS permission if it is not already granted.
-    - Notifies users that SMS permission cannot be revoked directly from the app and needs to be done via settings.
-    - Updates the user interface (UI) based on the permission state.
-
-    Issues: No known issues
-*/
+ *     Appointment Now - SMS Permission Activity
+ *     Author: Conor Steward
+ *     Contact: 1conorsteward@gmail.com
+ *     Date Created: 10/8/24
+ *     Last Updated: 03/07/25
+ *     Version: 2.2
+ *
+ *     Description:
+ *     This activity manages SMS permissions for the AppointmentNow application.
+ *     Users can check, request, and view the status of SMS permissions.
+ *
+ *     Features:
+ *     - Checks if SEND_SMS permission is granted.
+ *     - Requests SMS permission if not already granted.
+ *     - Guides users on how to revoke permissions manually via settings.
+ *     - Dynamically updates the UI based on the permission state.
+ *
+ *     Dependencies:
+ *     - `Android Permissions API`
+ *
+ *     Issues:
+ *     - No known issues.
+ */
 
 package com.example.appointmentnow_steward;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.SwitchCompat;
 
-// This activity handles SMS permission management, including requesting and revoking permissions.
 public class SMSPermissionActivity extends AppCompatActivity {
 
-    // Request code for SMS permission
     private static final int SMS_PERMISSION_CODE = 1001;
 
-    // UI components
-    private TextView smsPermissionInfo;  // TextView to display the current permission status
-    private SwitchCompat permissionToggle;  // Switch to toggle SMS permission
+    // UI Components
+    private TextView smsPermissionInfo;
+    private SwitchCompat permissionToggle;
 
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_permission);
 
-        // Initialize views from the layout
-        smsPermissionInfo = findViewById(R.id.sms_permission_info);  // TextView for displaying permission status
-        permissionToggle = findViewById(R.id.permission_toggle);  // Toggle switch for SMS permission
-        ImageButton closeButton = findViewById(R.id.close_button);  // Close button to exit the activity
+        initializeUI();
+        updatePermissionUI();
+    }
 
-        // Set click listener for the close button to finish the activity
-        closeButton.setOnClickListener(v -> finish());  // Finishes the activity when the close button is clicked
+    /**
+     * Initializes UI components and sets up event listeners.
+     */
+    private void initializeUI() {
+        smsPermissionInfo = findViewById(R.id.sms_permission_info);
+        permissionToggle = findViewById(R.id.permission_toggle);
+        ImageButton closeButton = findViewById(R.id.close_button);
 
-        // Set up the toggle switch based on the current SMS permission state
-        checkSmsPermission();  // Checks the current SMS permission and updates the UI
+        // Close the activity when the close button is clicked
+        closeButton.setOnClickListener(v -> finish());
 
-        // Set a listener for the toggle switch to handle permission changes
+        // Toggle switch listener
         permissionToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                checkAndRequestSMSPermission();  // Requests SMS permission if toggled on
+                requestSmsPermission();
             } else {
-                handlePermissionRevocation();  // Handles revocation attempt if toggled off
+                showManualRevocationDialog();
             }
         });
     }
 
-    // Method to check and request SMS permission
-    private void checkAndRequestSMSPermission() {
-        // Check if SMS permission is not granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Request the SEND_SMS permission
+    /**
+     * Updates the UI based on the current SMS permission state.
+     */
+    private void updatePermissionUI() {
+        boolean isGranted = isSmsPermissionGranted();
+        permissionToggle.setChecked(isGranted);
+        smsPermissionInfo.setText(isGranted ? R.string.permission_granted : R.string.permission_denied);
+    }
+
+    /**
+     * Checks if SMS permission is granted.
+     */
+    private boolean isSmsPermissionGranted() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Requests SMS permission if not already granted.
+     */
+    private void requestSmsPermission() {
+        if (isSmsPermissionGranted()) {
+            updatePermissionUI(); // Ensure UI is updated correctly
+            return;
+        }
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
+            showPermissionRationaleDialog();
+        } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE);
-        } else {
-            // If permission is already granted, update the UI
-            smsPermissionInfo.setText(R.string.permission_granted);  // Update the TextView to show "Permission Granted"
-            permissionToggle.setChecked(true);  // Ensure the toggle switch reflects the granted permission
         }
     }
 
-    // Method to check the current SMS permission state and update the UI accordingly
-    private void checkSmsPermission() {
-        // Check if SMS permission is not granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Update UI to indicate permission is denied
-            permissionToggle.setChecked(false);  // Toggle switch is off when permission is denied
-            smsPermissionInfo.setText(R.string.permission_denied);  // Update the TextView to show "Permission Denied"
-        } else {
-            // Update UI to indicate permission is granted
-            permissionToggle.setChecked(true);  // Toggle switch is on when permission is granted
-            smsPermissionInfo.setText(R.string.permission_granted);  // Update the TextView to show "Permission Granted"
-        }
+    /**
+     * Shows a rationale dialog before requesting SMS permission.
+     */
+    private void showPermissionRationaleDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("SMS Permission Required")
+                .setMessage("This app requires SMS permission to send appointment notifications. Please grant it to continue.")
+                .setPositiveButton("Allow", (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SMS_PERMISSION_CODE))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    permissionToggle.setChecked(false);
+                    dialog.dismiss();
+                })
+                .show();
     }
 
-    // Method to handle the case where the user attempts to revoke the permission via the toggle switch
-    private void handlePermissionRevocation() {
-        // Show a toast message indicating that SMS permission needs to be revoked manually
-        Toast.makeText(this, "SMS Permission needs to be revoked from the settings manually.", Toast.LENGTH_LONG).show();
-        // Set the toggle switch back to 'checked' state as revocation cannot be handled directly by the app
-        permissionToggle.setChecked(true);  // Reset the toggle switch to 'on' to indicate permission is still active
+    /**
+     * Displays a dialog informing the user that SMS permission must be revoked manually.
+     */
+    private void showManualRevocationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Manual Permission Revocation")
+                .setMessage("SMS permission cannot be revoked from within the app. Please go to your device settings to disable it.")
+                .setPositiveButton("Open Settings", (dialog, which) -> openAppSettings())
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    permissionToggle.setChecked(true); // Reset toggle to reflect actual permission state
+                    dialog.dismiss();
+                })
+                .show();
     }
 
-    // Callback method to handle the result of a permission request
+    /**
+     * Opens the app settings for manual permission revocation.
+     */
+    private void openAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
+    }
+
+    /**
+     * Handles the result of the SMS permission request.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        // Check if the result is for the SMS permission request
         if (requestCode == SMS_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // If permission is granted, update the UI
-                smsPermissionInfo.setText(R.string.permission_granted);  // Update the TextView to show "Permission Granted"
-                permissionToggle.setChecked(true);  // Ensure the toggle switch reflects the granted permission
-            } else {
-                // If permission is denied, update the UI
-                smsPermissionInfo.setText(R.string.permission_denied);  // Update the TextView to show "Permission Denied"
-                permissionToggle.setChecked(false);  // Ensure the toggle switch reflects the denied permission
+            boolean isGranted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            updatePermissionUI();
+
+            if (!isGranted) {
+                showPermissionDeniedDialog();
             }
         }
+    }
+
+    /**
+     * Shows a dialog when the user denies SMS permission.
+     */
+    private void showPermissionDeniedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission Denied")
+                .setMessage("SMS permission is required for sending appointment notifications. You can enable it in your device settings.")
+                .setPositiveButton("Open Settings", (dialog, which) -> openAppSettings())
+                .setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }

@@ -1,92 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Author: Conor Steward
     Contact: 1conorsteward@gmail.com
     Date Created: 10/8/24
-    Version: 2.1
+    Last Updated: 03/07/25
+    Version: 2.2
 
     event_item.xml
 
-    Event item layout used in a list or grid for displaying individual event information (appointment).
-    This layout includes the following components:
-    - Event title (Patient Name)
-    - Event subtitle (Doctor Name)
-    - Event status (such as "Scheduled" or "Completed")
-    - Edit and Delete buttons to manage the event.
+    This layout represents a single event (appointment) item in a list or grid.
+    Each event item includes:
+    - Patient name (title)
+    - Doctor name (subtitle)
+    - Event status (e.g., "Scheduled" or "Completed")
+    - Edit and Delete buttons for event management.
 
-    Key Features:
-    - Clear and easy-to-read display of event details.
-    - Buttons for quick actions (edit and delete).
-    - Status information displayed prominently alongside the event details.
+    UI Features:
+    - Uses ConstraintLayout for better alignment and responsiveness.
+    - Proper button placement with better spacing.
+    - Accessible touch targets for interactive elements.
 
-    Issues: No known issues
+    Issues: No known issues.
 -->
 
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="@android:color/white">
 
     <!-- Event Title (Patient Name) -->
     <TextView
         android:id="@+id/event_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/event_title"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_alignParentStart="true" />
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/event_status"
+        android:paddingEnd="8dp" />
 
     <!-- Event Subtitle (Doctor Name) -->
     <TextView
         android:id="@+id/event_subtitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/event_subtitle"
         android:textSize="16sp"
-        android:layout_below="@id/event_title"
-        android:layout_alignParentStart="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_title"
+        app:layout_constraintEnd_toStartOf="@id/event_status"
+        android:paddingEnd="8dp"
         android:layout_marginTop="4dp" />
 
-    <!-- Event Status (to the right of Title and Subtitle) -->
-
-    <!-- Edit Event Button -->
-
+    <!-- Event Status (Aligned to the Right) -->
     <TextView
         android:id="@+id/event_status"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="33dp"
-        android:layout_toEndOf="@id/event_title"
-        android:text="@string/event_status"
-        android:textSize="14sp" />
-
-    <ImageButton
-        android:id="@+id/edit_event_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
+        android:text="@string/event_status"
+        android:textSize="14sp"
+        android:textColor="@color/status_color"
+        android:padding="6dp"
+        android:background="@drawable/status_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/event_subtitle" />
+
+    <!-- Edit Event Button -->
+    <ImageButton
+        android:id="@+id/edit_event_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/edit"
         android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toStartOf="@id/delete_event_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
         tools:ignore="TouchTargetSizeCheck" />
 
     <!-- Delete Event Button -->
     <ImageButton
         android:id="@+id/delete_event_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_event_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="?attr/selectableItemBackground"
         android:contentDescription="@string/delete"
         android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

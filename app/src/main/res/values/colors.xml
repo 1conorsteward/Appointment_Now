@@ -2,52 +2,40 @@
 <resources>
 
     <!--
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
+        Author: Conor Steward
+        Contact: 1conorsteward@gmail.com
+        Date Created: 10/8/24
+        Last Updated: 03/07/25
+        Version: 2.2
 
-        colors.xml
-
-        This file defines color resources for the AppointmentNow application.
-        These colors are used throughout the app to maintain consistent styling
-        and branding across different UI components. By defining colors in this
-        centralized resource file, it is easier to manage and update the color scheme
-        of the app in one place.
-
-        Key Features:
-        - Centralizes color definitions for reuse across the app.
-        - Supports consistent branding and visual design.
-        - Simplifies future updates to the color scheme.
-
-    Issues: No known issues
+        Description:
+        This file defines the color resources for the AppointmentNow application.
+        It maintains consistency in the color scheme across UI components while
+        enabling easy future updates.
+        
+        Issues:
+        - No known issues.
     -->
 
-    <!-- Primary purple used for main branding elements and backgrounds -->
-    <color name="primary_purple">#a834eb</color>
+    <!-- =================== PRIMARY BRAND COLORS =================== -->
+    <color name="primary_purple">#a834eb</color>    <!-- Main branding color -->
+    <color name="light_purple">#d6a8ff</color>     <!-- Secondary highlights -->
+    <color name="dark_purple">#7a1cb8</color>      <!-- Darker contrast for branding -->
 
-    <!-- Light purple used for highlights, buttons, and secondary backgrounds -->
-    <color name="light_purple">#d6a8ff</color>
+    <!-- =================== ACCENT & HIGHLIGHT COLORS =================== -->
+    <color name="accent_blue">#4da6ff</color>      <!-- Action buttons, highlights -->
+    <color name="complementary_yellow">#ffdf33</color>  <!-- Attention grabber (e.g., warnings) -->
 
-    <!-- Dark purple used for text or accents in headers or UI elements -->
-    <color name="dark_purple">#7a1cb8</color>
+    <!-- =================== TEXT & BACKGROUND COLORS =================== -->
+    <color name="soft_gray">#e0e0e0</color>        <!-- Light gray (backgrounds, dividers) -->
+    <color name="dark_gray">#333333</color>        <!-- Text, UI elements -->
+    <color name="black">#000000</color>            <!-- High-contrast text or icons -->
+    <color name="white">#FFFFFF</color>            <!-- Default light text/icons -->
 
-    <!-- Complementary yellow used for highlights or complementary UI elements -->
-    <color name="complementary_yellow">#ffdf33</color>
-
-    <!-- Soft gray used for background shades or subtle dividers -->
-    <color name="soft_gray">#e0e0e0</color>
-
-    <!-- Dark gray used for text or contrasting UI elements against lighter backgrounds -->
-    <color name="dark_gray">#333333</color>
-
-    <!-- Accent blue used for active or selected elements like buttons and icons -->
-    <color name="accent_blue">#4da6ff</color>
-
-    <!-- Black used for text or other UI elements that require high contrast -->
-    <color name="black">#000000</color>
-
-    <!-- White used for text, backgrounds, and icons on dark backgrounds -->
-    <color name="white">#FFFFFF</color>
+    <!-- =================== STATUS COLORS (For Events & Appointments) =================== -->
+    <color name="status_scheduled">#4da6ff</color>   <!-- Scheduled appointments -->
+    <color name="status_completed">#3cb371</color>   <!-- Completed appointments (green) -->
+    <color name="status_missed">#ff6347</color>      <!-- Missed appointments (red) -->
+    <color name="status_rescheduled">#ffa500</color> <!-- Rescheduled appointments (orange) -->
 
 </resources>

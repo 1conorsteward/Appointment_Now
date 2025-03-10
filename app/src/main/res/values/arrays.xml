@@ -2,39 +2,25 @@
 <resources>
 
     <!--
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
+        Author: Conor Steward
+        Contact: 1conorsteward@gmail.com
+        Date Created: 10/8/24
+        Last Updated: 03/07/25
+        Version: 2.2
 
-        This file defines a string-array resource named "appointment_status_options" that contains
-        various statuses for appointments in the application. These statuses will be used in
-        dropdown menus (spinners) or other UI components where users can select the current status
-        of an appointment (e.g., whether the appointment is scheduled, completed, missed, etc.).
+        Description:
+        This file defines reusable string-array resources for dropdown menus, spinners, and other UI elements.
 
-        Key Features:
-        - Provides a list of appointment status options.
-        - Used in spinners or dropdown menus within the app.
-        - Simplifies managing and updating status options in one central location.
-
-    Issues: No known issues
+        Issues:
+        - No known issues.
     -->
 
-    <!-- String array containing possible appointment statuses -->
+    <!-- =================== Appointment Status Options =================== -->
     <string-array name="appointment_status_options">
-
-        <!-- Scheduled: The appointment is scheduled and upcoming -->
-        <item>Scheduled</item>
-
-        <!-- Completed: The appointment has been successfully completed -->
-        <item>Completed</item>
-
-        <!-- Missed: The appointment was missed by the patient -->
-        <item>Missed</item>
-
-        <!-- Rescheduled: The appointment has been rescheduled to a different date or time -->
-        <item>Rescheduled</item>
-
+        <item>@string/status_scheduled</item>      <!-- Scheduled -->
+        <item>@string/status_completed</item>      <!-- Completed -->
+        <item>@string/status_missed</item>         <!-- Missed -->
+        <item>@string/status_rescheduled</item>    <!-- Rescheduled -->
     </string-array>
 
 </resources>

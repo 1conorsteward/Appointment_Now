@@ -1,31 +1,28 @@
 /*
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
-
-    Event.java
-
-    This class represents an appointment event in the AppointmentNow application. It implements the
-    `Parcelable` interface, which allows instances of this class to be passed between Android
-    components through Intents or Bundles. Each event stores relevant information such as the
-    patient's name, doctor's name, appointment date, status, notes, and location.
-
-    Key Features:
-    - Implements `Parcelable` to allow the Event object to be passed between Android components.
-    - Provides constructors to create Event objects with and without an ID (for new and existing events).
-    - Stores appointment details such as patient name, doctor name, appointment date, status,
-      notes, and location.
-    - Includes getter and setter methods for each property, enabling easy access and modification.
-
-    Parcelable Interface:
-    - Parcelable is an Android-specific interface used to serialize and deserialize objects, allowing
-      them to be passed between activities, services, or fragments.
-    - The `writeToParcel()` method serializes the object's data, while the `CREATOR` object and
-      `createFromParcel()` method deserialize the data to reconstruct the object.
-
-    Issues: No known issues
-*/
+ *     Appointment Now - Event Model
+ *     Author: Conor Steward
+ *     Contact: 1conorsteward@gmail.com
+ *     Date Created: 10/8/24
+ *     Last Updated: 03/07/25
+ *     Version: 2.2
+ *
+ *     Description:
+ *     This class represents an appointment event in the AppointmentNow application. 
+ *     It implements the `Parcelable` interface, allowing instances to be passed between 
+ *     Android components via Intents or Bundles.
+ *     
+ *     Features:
+ *     - Implements `Parcelable` for efficient object serialization and transfer.
+ *     - Provides constructors for both new and existing events.
+ *     - Encapsulates appointment details such as patient, doctor, date, status, notes, and location.
+ *     - Ensures proper handling of optional fields (e.g., `pdfUri` may be null).
+ * 
+ *     Dependencies:
+ *     - Android Parcelable Interface (`android.os.Parcelable`)
+ * 
+ *     Issues:
+ *     - No known issues.
+ */
 
 package com.example.appointmentnow_steward;
 
@@ -34,186 +31,184 @@ import android.os.Parcelable;
 
 public class Event implements Parcelable {
 
-    // Fields to store the event details
-    private long id;                 // Unique identifier for the event (used when stored in a database)
-    private String patientName;      // The patient's name
-    private String doctorName;       // The doctor's name
+    // -------------------- Fields (Event Attributes) --------------------
+    private long id;                 // Unique event ID (used for database storage)
+    private String patientName;      // Patient's name
+    private String doctorName;       // Doctor's name
     private String appointmentDate;  // Date of the appointment
     private String status;           // Status of the appointment (e.g., Scheduled, Completed)
-    private String notes;            // Additional notes related to the appointment
+    private String notes;            // Additional notes about the appointment
     private String location;         // Location of the appointment
-    private String pdfUri;           // URI of an optional PDF associated with the event
+    private String pdfUri;           // URI of an attached PDF file (optional)
+
+    // -------------------- Constructors --------------------
 
     /**
-     * Constructor with an ID. This is used for events that already exist in the database and
-     * have an ID associated with them.
+     * Constructor for an existing event (with ID).
+     * Used for events retrieved from the database.
      *
-     * @param id              The unique ID of the event.
+     * @param id              The unique event ID from the database.
      * @param patientName     The name of the patient.
      * @param doctorName      The name of the doctor.
      * @param appointmentDate The date of the appointment.
-     * @param status          The status of the appointment (e.g., Scheduled, Completed).
-     * @param notes           Additional notes about the appointment.
+     * @param status          The status of the appointment (Scheduled, Completed, etc.).
+     * @param notes           Any additional notes for the appointment.
      * @param location        The location of the appointment.
-     * @param pdfUri          The URI of the PDF file, if any.
+     * @param pdfUri          The URI of the attached PDF file (nullable).
      */
-    public Event(long id, String patientName, String doctorName, String appointmentDate, String status, String notes, String location, String pdfUri) {
-        this.id = id;  // Set the ID for an existing event
+    public Event(long id, String patientName, String doctorName, String appointmentDate, 
+                 String status, String notes, String location, String pdfUri) {
+        this.id = id;
         this.patientName = patientName;
         this.doctorName = doctorName;
         this.appointmentDate = appointmentDate;
         this.status = status;
         this.notes = notes;
         this.location = location;
-        this.pdfUri = pdfUri;  // Set the PDF URI (optional)
+        this.pdfUri = pdfUri;
     }
 
     /**
-     * Constructor without an ID. This is used for newly created events that do not yet have
-     * an ID in the database (e.g., when the user is creating a new appointment).
+     * Constructor for a new event (without ID).
+     * Used when the user creates an event before saving it in the database.
      *
      * @param patientName     The name of the patient.
      * @param doctorName      The name of the doctor.
      * @param appointmentDate The date of the appointment.
-     * @param status          The status of the appointment (e.g., Scheduled, Completed).
-     * @param notes           Additional notes about the appointment.
+     * @param status          The status of the appointment.
+     * @param notes           Additional notes related to the event.
      * @param location        The location of the appointment.
-     * @param pdfUri          The URI of the PDF file, if any.
+     * @param pdfUri          The URI of the attached PDF file (nullable).
      */
-    public Event(String patientName, String doctorName, String appointmentDate, String status, String notes, String location, String pdfUri) {
-        // No ID is assigned yet since this is for a new event
-        this.patientName = patientName;
-        this.doctorName = doctorName;
-        this.appointmentDate = appointmentDate;
-        this.status = status;
-        this.notes = notes;
-        this.location = location;
-        this.pdfUri = pdfUri;  // Set the PDF URI (optional)
+    public Event(String patientName, String doctorName, String appointmentDate, 
+                 String status, String notes, String location, String pdfUri) {
+        this(0, patientName, doctorName, appointmentDate, status, notes, location, pdfUri); // Default ID to 0 for new events
     }
 
+    // -------------------- Parcelable Implementation --------------------
+
     /**
-     * Constructor used by the Parcelable interface to recreate an Event object from a Parcel.
-     * This is needed for passing Event objects between Android components (e.g., Activities).
+     * Constructor used to recreate an Event object from a Parcel.
+     * This is necessary for passing Event objects between Android components.
      *
-     * @param in The Parcel containing the serialized Event data.
+     * @param in The Parcel containing serialized Event data.
      */
     protected Event(Parcel in) {
-        id = in.readLong();  // Read the event ID from the Parcel
-        patientName = in.readString();  // Read the patient name
-        doctorName = in.readString();   // Read the doctor name
-        appointmentDate = in.readString();  // Read the appointment date
-        status = in.readString();  // Read the appointment status
-        notes = in.readString();  // Read the appointment notes
-        location = in.readString();  // Read the appointment location
-        pdfUri = in.readString();  // Read the PDF URI (can be null)
+        id = in.readLong();
+        patientName = in.readString();
+        doctorName = in.readString();
+        appointmentDate = in.readString();
+        status = in.readString();
+        notes = in.readString();
+        location = in.readString();
+        pdfUri = in.readString(); // May be null, handle appropriately in UI
     }
 
     /**
-     * Method required by the Parcelable interface to serialize the Event object's data into a Parcel.
-     * This allows the Event object to be passed between Android components.
+     * Writes Event object data to a Parcel for serialization.
+     * Enables Event objects to be passed between Activities, Fragments, etc.
      *
-     * @param dest  The Parcel where the object's data should be written.
-     * @param flags Additional flags about how the object should be written.
+     * @param dest  The Parcel to write data to.
+     * @param flags Additional flags (not used, typically 0).
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);  // Write the event ID
-        dest.writeString(patientName);  // Write the patient name
-        dest.writeString(doctorName);   // Write the doctor name
-        dest.writeString(appointmentDate);  // Write the appointment date
-        dest.writeString(status);  // Write the appointment status
-        dest.writeString(notes);  // Write the notes
-        dest.writeString(location);  // Write the location
-        dest.writeString(pdfUri);  // Write the PDF URI (can be null)
+        dest.writeLong(id);
+        dest.writeString(patientName);
+        dest.writeString(doctorName);
+        dest.writeString(appointmentDate);
+        dest.writeString(status);
+        dest.writeString(notes);
+        dest.writeString(location);
+        dest.writeString(pdfUri);
     }
 
     /**
-     * Method required by the Parcelable interface, but not used in this case.
-     * It describes any special objects contained in the Parcelable.
-     *
-     * @return 0 because there are no special objects in this class.
+     * Describes the contents of this Parcelable object (not used, returns 0).
      */
     @Override
     public int describeContents() {
         return 0;
     }
 
-    // CREATOR field used to generate instances of the Event class from a Parcel
+    /**
+     * Parcelable.Creator implementation for creating Event instances from a Parcel.
+     */
     public static final Creator<Event> CREATOR = new Creator<Event>() {
         @Override
         public Event createFromParcel(Parcel in) {
-            return new Event(in);  // Calls the constructor that reads from the Parcel
+            return new Event(in);
         }
 
         @Override
         public Event[] newArray(int size) {
-            return new Event[size];  // Creates an array of Event objects
+            return new Event[size];
         }
     };
 
-    // Getters and Setters for the Event properties
+    // -------------------- Getters and Setters --------------------
 
     public long getId() {
-        return id;  // Get the event ID
+        return id;
     }
 
     public void setId(long id) {
-        this.id = id;  // Set the event ID (used when saving to the database)
+        this.id = id;
     }
 
     public String getPatientName() {
-        return patientName;  // Get the patient name
+        return patientName;
     }
 
     public void setPatientName(String patientName) {
-        this.patientName = patientName;  // Set the patient name
+        this.patientName = patientName;
     }
 
     public String getDoctorName() {
-        return doctorName;  // Get the doctor name
+        return doctorName;
     }
 
     public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;  // Set the doctor name
+        this.doctorName = doctorName;
     }
 
     public String getAppointmentDate() {
-        return appointmentDate;  // Get the appointment date
+        return appointmentDate;
     }
 
     public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;  // Set the appointment date
+        this.appointmentDate = appointmentDate;
     }
 
     public String getStatus() {
-        return status;  // Get the appointment status
+        return status;
     }
 
     public void setStatus(String status) {
-        this.status = status;  // Set the appointment status
+        this.status = status;
     }
 
     public String getNotes() {
-        return notes;  // Get any additional notes
+        return notes;
     }
 
     public void setNotes(String notes) {
-        this.notes = notes;  // Set any additional notes
+        this.notes = notes;
     }
 
     public String getLocation() {
-        return location;  // Get the location of the appointment
+        return location;
     }
 
     public void setLocation(String location) {
-        this.location = location;  // Set the location of the appointment
+        this.location = location;
     }
 
     public String getPdfUri() {
-        return pdfUri;  // Get the PDF URI
+        return pdfUri;
     }
 
     public void setPdfUri(String pdfUri) {
-        this.pdfUri = pdfUri;  // Set the PDF URI (optional)
+        this.pdfUri = pdfUri;
     }
 }

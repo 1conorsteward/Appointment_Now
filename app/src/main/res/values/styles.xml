@@ -1,122 +1,102 @@
 <resources>
 
     <!--
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
+        Author: Conor Steward
+        Contact: 1conorsteward@gmail.com
+        Date Created: 10/8/24
+        Last Updated: 03/07/25
+        Version: 2.2
 
-    styles.xml
-        This file defines the custom styles and themes for the AppointmentNow app.
-        It centralizes the application's visual design elements, such as colors, text styles, and button appearances.
-        The styles defined here are reused throughout the app to ensure consistency in the UI and make future modifications easier.
-
-        Key Features:
-        - Defines the base app theme and color schemes.
-        - Customizes the appearance of buttons, text, and dialogs.
-        - Supports both light and dark mode styling with material design components.
-
-    Issues: No known issues
+        Description:
+        This file defines the custom styles and themes for the AppointmentNow application.
+        It centralizes visual design elements such as colors, typography, and UI components.
+        
+        Issues:
+        - No known issues.
     -->
 
-    <!-- Base application theme, extending from AppCompat's Light.DarkActionBar theme -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here -->
-        <!-- Primary color for app branding (used in app bars, buttons, etc.) -->
-        <item name="colorPrimary">@color/primary_purple</item>
-        <!-- Darker variant of the primary color (used for status bar, navigation bar, etc.) -->
-        <item name="colorPrimaryDark">@color/dark_purple</item>
-        <!-- Accent color used for highlights and focus elements -->
-        <item name="colorAccent">@color/accent_blue</item>
-        <!-- Primary text color (for most text elements) -->
-        <item name="android:textColorPrimary">@android:color/black</item>
-        <!-- Secondary text color (for subtitles or less emphasized text) -->
-        <item name="android:textColorSecondary">@android:color/darker_gray</item>
-        <!-- Window background color (used as the default background color) -->
-        <item name="android:windowBackground">@color/white</item>
-    </style>
+    <!-- ========================== APP THEMES ========================== -->
 
-    <!-- Custom theme for AppointmentNow app, extending MaterialComponents theme -->
+    <!-- Base Theme using MaterialComponents -->
     <style name="Theme.AppointmentNowSteward" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color used for app bars, buttons, etc. -->
+        <!-- Primary branding colors -->
         <item name="colorPrimary">@color/primary_purple</item>
-        <!-- Variant of the primary color for highlights or accents -->
         <item name="colorPrimaryVariant">@color/light_purple</item>
-        <!-- Text color on top of the primary color (e.g., app bar title) -->
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color used for accents and highlights -->
+
+        <!-- Secondary branding colors -->
         <item name="colorSecondary">@color/complementary_yellow</item>
-        <!-- Variant of the secondary color used in backgrounds and less-emphasized elements -->
         <item name="colorSecondaryVariant">@color/soft_gray</item>
-        <!-- Text color on top of the secondary color -->
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color (matches the primary variant) -->
+
+        <!-- Default background and text colors -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+
+        <!-- Status bar color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <!-- Custom toolbar style for the app's action bars and toolbars -->
-    <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
-        <!-- Toolbar background color (usually primary color) -->
+    <!-- AppCompat Theme for compatibility with older components -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary_purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
+        <item name="colorAccent">@color/accent_blue</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+    </style>
+
+    <!-- ========================== TOOLBAR STYLE ========================== -->
+
+    <style name="CustomToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:background">?attr/colorPrimary</item>
-        <!-- Toolbar title text color -->
         <item name="android:titleTextColor">@android:color/white</item>
-        <!-- Toolbar subtitle text color -->
         <item name="android:subtitleTextColor">@android:color/white</item>
     </style>
 
-    <!-- Button style for primary buttons in the app -->
-    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
-        <!-- Background color for the button (uses primary color) -->
-        <item name="android:background">@color/primary_purple</item>
-        <!-- Text color for the button text -->
+    <!-- ========================== BUTTON STYLES ========================== -->
+
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/primary_purple</item>
         <item name="android:textColor">@android:color/white</item>
-        <!-- Padding around the button text -->
         <item name="android:padding">12dp</item>
-        <!-- Force button text to be all caps -->
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <!-- Text appearance style for large text elements -->
-    <style name="TextAppearance.Large" parent="TextAppearance.AppCompat.Large">
-        <!-- Text color (black) -->
-        <item name="android:textColor">@android:color/black</item>
-        <!-- Font size for large text -->
-        <item name="android:textSize">24sp</item>
+    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/primary_purple</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:strokeColor">@color/primary_purple</item>
     </style>
 
-    <!-- Text appearance style for medium-sized text elements -->
-    <style name="TextAppearance.Medium" parent="TextAppearance.AppCompat.Medium">
-        <!-- Text color (black) -->
+    <!-- ========================== TEXT APPEARANCES ========================== -->
+
+    <style name="TextAppearance.Large" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@android:color/black</item>
-        <!-- Font size for medium text -->
-        <item name="android:textSize">18sp</item>
     </style>
 
-    <!-- Text appearance style for small text elements -->
-    <style name="TextAppearance.Small" parent="TextAppearance.AppCompat.Small">
-        <!-- Text color (black) -->
+    <style name="TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@android:color/black</item>
-        <!-- Font size for small text -->
-        <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Style for EditText fields -->
-    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
-        <!-- Background drawable for the text input field -->
-        <item name="android:background">@android:drawable/edit_text</item>
-        <!-- Text color for the input text -->
+    <style name="TextAppearance.Small" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@android:color/black</item>
-        <!-- Padding inside the text field -->
+    </style>
+
+    <!-- ========================== INPUT FIELD STYLES ========================== -->
+
+    <style name="EditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:padding">10dp</item>
     </style>
 
-    <!-- Custom theme for dialogs, based on AppCompat dialog theme -->
-    <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <!-- Accent color for dialog highlights -->
+    <!-- ========================== CUSTOM DIALOG STYLES ========================== -->
+
+    <style name="CustomDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="colorAccent">@color/accent_blue</item>
-        <!-- Primary text color in dialogs -->
         <item name="android:textColorPrimary">@android:color/black</item>
-        <!-- Secondary text color in dialogs -->
         <item name="android:textColorSecondary">@android:color/darker_gray</item>
     </style>
 

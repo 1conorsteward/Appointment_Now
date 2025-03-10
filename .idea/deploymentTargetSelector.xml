@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Appointment Now - Deployment Target Selector
+    Developer: Conor Steward
+    Last Updated: 03/07/25
+    Description: Defines how deployment targets are selected in Android Studio.
+    Note: This file is used for IDE configurations and does not impact app functionality.
+-->
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>

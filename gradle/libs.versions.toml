@@ -5,6 +5,8 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
+kotlin = "1.9.0"  # Added Kotlin version for compatibility
+androidLibrary = "8.5.0" # Added missing Android Library Plugin
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -15,4 +17,5 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
+android-library = { id = "com.android.library", version.ref = "androidLibrary" }  # Added missing reference
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }  # Added missing Kotlin plugin

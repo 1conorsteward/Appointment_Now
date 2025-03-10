@@ -1,19 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample data extraction rules file; uncomment and customize as necessary.
-   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
-   for details.
--->
+<?xml version="1.0" encoding="utf-8"?>
 <data-extraction-rules>
+
+    <!-- Cloud Backup Settings -->
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <!-- Include user settings and essential app data -->
+        <include domain="sharedpref" path="user_settings.xml"/>
+        <include domain="database" path="AppointmentNow.db"/>
+
+        <!-- Exclude authentication tokens, cache files, and logs -->
+        <exclude domain="sharedpref" path="auth_tokens.xml"/>
+        <exclude domain="database" path="temp_cache.db"/>
+        <exclude domain="sharedpref" path="error_logs.xml"/>
     </cloud-backup>
-    <!--
+
+    <!-- Device-to-Device Transfer Settings -->
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <!-- Include app settings and database -->
+        <include domain="sharedpref" path="user_settings.xml"/>
+        <include domain="database" path="AppointmentNow.db"/>
+        
+        <!-- Exclude logs and unnecessary files -->
+        <exclude domain="sharedpref" path="error_logs.xml"/>
+        <exclude domain="database" path="debug_logs.db"/>
     </device-transfer>
-    -->
+
 </data-extraction-rules>

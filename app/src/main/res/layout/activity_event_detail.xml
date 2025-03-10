@@ -2,7 +2,8 @@
     Author: Conor Steward
     Contact: 1conorsteward@gmail.com
     Date Created: 10/8/24
-    Version: 2.1
+    Last Updated: 03/07/25
+    Version: 2.2
 
     activity_event_detail.xml
 
@@ -21,105 +22,85 @@
     Issues: No known issues
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Top Bar with close button -->
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_purple"
-        android:padding="16dp">
+    <!-- Top Bar with Close Button -->
+    <ImageButton
+        android:id="@+id/close_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/close"
+        android:background="?attr/selectableItemBackground"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Close button in the top bar -->
-        <ImageButton
-            android:id="@+id/close_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:contentDescription="Close"
-            app:tint="@android:color/white" />
-    </RelativeLayout>
-
-    <!-- Event Detail Fields -->
-
-    <!-- Text view for patient name -->
+    <!-- Patient Name -->
     <TextView
         android:id="@+id/patient_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/patient_name"
-        android:textSize="18sp"
-        android:layout_below="@id/top_bar"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/close_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Text view for doctor name -->
+    <!-- Doctor Name -->
     <TextView
         android:id="@+id/doctor_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/doctor_name"
-        android:textSize="18sp"
-        android:layout_below="@id/patient_name"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/patient_name"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Text view for appointment date -->
+    <!-- Appointment Date -->
     <TextView
         android:id="@+id/appointment_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/appointment_date"
-        android:textSize="18sp"
-        android:layout_below="@id/doctor_name"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/doctor_name"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Text view for appointment status -->
+    <!-- Appointment Status -->
     <TextView
         android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/appointment_status"
-        android:textSize="18sp"
-        android:layout_below="@id/appointment_date"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/appointment_date"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Text view for notes -->
+    <!-- Notes -->
     <TextView
         android:id="@+id/notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/appointment_notes"
-        android:textSize="18sp"
-        android:layout_below="@id/status"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Text view for location -->
+    <!-- Location -->
     <TextView
         android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/EventDetailText"
         android:text="@string/appointment_location"
-        android:textSize="18sp"
-        android:layout_below="@id/notes"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/notes"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Export to PDF button -->
+    <!-- Export to PDF Button -->
     <Button
         android:id="@+id/export_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/export_to_pdf"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primary_purple"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginBottom="16dp" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

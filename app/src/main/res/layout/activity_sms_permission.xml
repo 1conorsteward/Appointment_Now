@@ -2,83 +2,116 @@
     Author: Conor Steward
     Contact: 1conorsteward@gmail.com
     Date Created: 10/8/24
-    Version: 2.1
+    Last Updated: 03/07/25
+    Version: 2.2
 
     activity_sms_permission.xml
 
-    This layout file defines the user interface for the SMS Permission screen in the AppointmentNow application.
-    It provides:
-    - A top bar with a title and close button.
-    - A central area displaying SMS permission information with a toggle switch for enabling or disabling the permission.
+    This layout defines the UI for the SMS Permission screen in the AppointmentNow app.
+    It allows users to:
+    - View the current SMS permission status.
+    - Enable or disable SMS permissions using a toggle switch.
+    - Exit the screen via a close button.
 
-    Key Features:
-    - The top banner contains the app name and a close button for easy navigation.
-    - A message explaining SMS permission with a toggle to manage the permission state.
+    UI Elements:
+    - A top bar containing:
+        - The screen title ("SMS Permissions").
+        - A close button aligned to the right.
+    - A centered permission explanation message.
+    - A toggle switch allowing users to request SMS permissions.
 
-    Issues: No known issues
+    Implementation Details:
+    - Uses ConstraintLayout for optimal scaling and alignment.
+    - Ensures proper spacing and padding for UI elements.
+    - Provides accessibility support with content descriptions.
+
+    Issues: No known issues.
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background_light">
 
-    <!-- Top Banner with Title and Close Button -->
-    <RelativeLayout
+    <!-- Top Bar with Title and Close Button -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/primary_purple"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Screen Title -->
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/sms_permission_title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_centerInParent="true" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center" />
 
+        <!-- Close Button -->
         <ImageButton
             android:id="@+id/close_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/close"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Centered Container for SMS Permission Info and Toggle -->
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal">
+        android:padding="24dp"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- SMS Permissions Notification -->
+        <!-- SMS Permission Explanation -->
         <TextView
             android:id="@+id/sms_permission_info"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/sms_permission_info"
             android:textSize="18sp"
-            android:padding="16dp" />
+            android:gravity="center"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- SMS Permissions Toggle -->
+        <!-- SMS Permission Toggle -->
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/permission_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ask_permission"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/sms_permission_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

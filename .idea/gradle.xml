@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Appointment Now - Gradle Configuration
+    Developer: Conor Steward
+    Last Updated: 03/07/25
+    Description: Defines Gradle settings for the project within Android Studio.
+    Note: This file is auto-generated and used for IDE configurations.
+          It does not affect Gradle builds run via CLI.
+-->
 <project version="4">
   <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">

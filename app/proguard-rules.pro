@@ -1,21 +1,65 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
+# ------------------- ProGuard Rules for AppointmentNow -------------------
+# Optimized by: Conor Steward
+# Last Updated: 03/07/25
 #
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Description:
+# This file contains ProGuard rules for obfuscating, shrinking, and optimizing
+# the AppointmentNow Android application. It helps reduce APK size and 
+# protects the code while maintaining required functionality.
+#
+# Reference:
+# - Official Documentation: https://developer.android.com/studio/build/shrink-code
+# ------------------------------------------------------------------------
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Keep Application Classes (Avoid Stripping Main App Code)
+-keep class com.example.appointmentnow_steward.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep Parcelable classes to ensure Android can properly serialize them
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Keep all custom model classes (Replace "model" with the correct package if needed)
+-keep class com.example.appointmentnow_steward.model.** { *; }
+
+# Keep AndroidX and Material Components (Prevents UI issues)
+-keep class androidx.** { *; }
+-keep class com.google.android.material.** { *; }
+
+# Keep Database Entities and Helper Methods
+-keep class * extends android.database.sqlite.SQLiteOpenHelper { *; }
+-keepclassmembers class * {
+    @androidx.room.* <fields>;
+    @androidx.room.* <methods>;
+}
+
+# Keep JSON Parsing Classes (For Gson or other libraries)
+-keep class com.google.gson.** { *; }
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# Keep Methods for Reflection-Based Access
+-keepclassmembers class * {
+    @java.lang.reflect.* <methods>;
+}
+
+# Keep WebView JavaScript Interfaces (Uncomment if needed)
+# -keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#    public *;
+# }
+
+# Keep Logging Messages in Debug Mode Only
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+}
+
+# Preserve Line Number Information (For Better Debugging)
+-keepattributes SourceFile,LineNumberTable
+
+# Rename Source File Attribute (Obfuscates Original File Names)
+-renamesourcefileattribute "HiddenSource"

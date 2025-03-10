@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id 'com.android.application'
 }
 
 android {
@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.appointmentnow_steward"
-        minSdk 34
+        minSdk 23  // Changed from 34 to 23 for better device support
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -18,21 +18,44 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true // Enabled minification for optimized APK size
+            shrinkResources true // Removes unused resources in the release build
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17  // Ensures Java 17 compatibility
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding true // Enables ViewBinding for better UI handling
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
     }
 }
 
 dependencies {
-
+    // Use dependency aliases from libs.versions.toml
     implementation libs.appcompat
     implementation libs.material
+
+    // Unit Testing
     testImplementation libs.junit
+
+    // Android Testing
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    // Additional Libraries (Uncomment if needed)
+    // implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    // implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 }

@@ -1,52 +1,45 @@
 <!--
+    Appointment Now - AndroidManifest.xml
     Author: Conor Steward
     Contact: 1conorsteward@gmail.com
     Date Created: 10/8/24
-    Version: 2.1
+    Last Updated: 03/07/25
+    Version: 2.2
 
+    Description:
+    This manifest file defines core information about the AppointmentNow application, including:
+    - Permissions for sending SMS and accessing storage.
+    - Activities and their accessibility rules.
+    - App-level configurations (themes, icons, and required features).
 
-    AndroidManifest.xml
-
-    This manifest file defines the essential information for the AppointmentNow application.
-    It declares the package name, necessary permissions, application features, and the activities used in the app.
-    This file controls the structure and behavior of the app at runtime. Permissions for sending SMS,
-    accessing external storage, and other critical features are defined here.
-
-    Key Features:
-    - Permissions: Requests for sending SMS and accessing external storage.
-    - Features: Telephony feature requirement for the device.
-    - Activities: Defines the main app components including login, event display, and history screens.
-    - Exported attributes for activities indicate that they can be launched by other applications.
-
-
-
-    Details:
-    - The `LoginActivity` is the launcher activity, meaning it starts when the app is opened.
-    - Other activities such as `EventDisplayActivity`, `SMSPermissionActivity`, and `HistoryActivity` are also defined.
-
-    Issues: No known issues
+    Security Improvements:
+    - Only `LoginActivity` is exported (`true`), preventing unauthorized external access to other activities.
+    - Uses **scoped storage** instead of deprecated `WRITE_EXTERNAL_STORAGE` (Android 13+).
+    - Allows installation on non-telephony devices (e.g., Wi-Fi-only tablets).
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions Section -->
-    <!-- Request permission to send SMS -->
+    <!-- ✅ Permissions Section -->
+    <!-- Permission to send SMS (Required for messaging functionality) -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
-    <!-- Declare that the app requires a telephony feature (i.e., a phone capable of sending SMS) -->
-    <uses-feature android:name="android.hardware.telephony" android:required="true"/>
+    <!-- Allows devices without SIM cards (Wi-Fi-only tablets) to install the app -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
 
-    <!-- Request permission to write to external storage (up to Android 12, API level 32) -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"
-        tools:ignore="ScopedStorage" />
+    <!-- ✅ Scoped Storage: Replaces WRITE/READ_EXTERNAL_STORAGE (Scoped for Android 10+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
+        android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS"
+        android:maxSdkVersion="32"/>
 
-    <!-- Request permission to read from external storage (up to Android 12, API level 32) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <!-- ✅ For Android 13+ Storage Access -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
 
-    <!-- Application Definition -->
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -54,31 +47,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppointmentNowSteward">
 
-        <!-- LoginActivity: The launcher activity (first screen users see when they open the app) -->
+        <!-- ✅ LoginActivity: The main entry point -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!-- EventDisplayActivity: Displays the list of events for the user -->
-        <activity android:name=".EventDisplayActivity" android:exported="true"/>
+        <!-- ✅ EventDisplayActivity: Only accessible after login -->
+        <activity android:name=".EventDisplayActivity" android:exported="false"/>
 
-        <!-- SMSPermissionActivity: Manages the request for SMS permissions -->
-        <activity android:name=".SMSPermissionActivity" android:exported="true"/>
+        <!-- ✅ SMSPermissionActivity: Manages SMS permission requests -->
+        <activity android:name=".SMSPermissionActivity" android:exported="false"/>
 
-        <!-- RegisterActivity: Handles user registration -->
-        <activity android:name=".RegisterActivity" android:exported="true"/>
+        <!-- ✅ RegisterActivity: Account creation (internal only) -->
+        <activity android:name=".RegisterActivity" android:exported="false"/>
 
-        <!-- EventDetailActivity: Displays detailed information about a specific event -->
-        <activity android:name=".EventDetailActivity" android:exported="true"/>
+        <!-- ✅ EventDetailActivity: Displays event details -->
+        <activity android:name=".EventDetailActivity" android:exported="false"/>
 
-        <!-- HistoryActivity: Displays a list of completed events or patient history -->
-        <activity android:name=".HistoryActivity" android:exported="true"/>
+        <!-- ✅ HistoryActivity: Completed appointments (internal only) -->
+        <activity android:name=".HistoryActivity" android:exported="false"/>
 
     </application>
-
 </manifest>

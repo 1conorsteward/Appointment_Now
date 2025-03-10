@@ -3,145 +3,191 @@
     Author: Conor Steward
     Contact: 1conorsteward@gmail.com
     Date Created: 10/8/24
-    Version: 2.1
+    Last Updated: 03/07/25
+    Version: 2.2
 
     dialog_add_event.xml
 
-    This layout defines the user interface for adding or editing an event (appointment) in the AppointmentNow application.
-    It includes:
-    - A top bar with the application name and a close button.
-    - Input fields for entering patient name, doctor name, appointment date, status, notes, and location.
-    - A button to save the event.
+    This layout defines the UI for adding or editing an event in the AppointmentNow app.
+    It provides:
+    - A top bar with the screen title and a close button.
+    - Input fields for patient name, doctor name, date, status, notes, and location.
+    - A button to attach a PDF file (optional).
+    - A save button to store event details.
 
-    Key Features:
-    - A clean and simple form to capture appointment details.
-    - Top bar with a close button for easy navigation.
-    - Input validation and appropriate widgets for user interaction.
+    UI Features:
+    - Uses ConstraintLayout for optimal scalability and alignment.
+    - Ensures proper spacing and padding for input fields.
+    - Provides accessibility support with content descriptions.
 
-    Issues: No known issues
+    Issues: No known issues.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background_light">
 
     <!-- Top Bar with Title and Close Button -->
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/primary_purple"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Menu Text -->
+        <!-- Screen Title -->
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/add_edit_event"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_centerInParent="true" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center" />
 
-        <!-- Close menu button -->
+        <!-- Close Button -->
         <ImageButton
             android:id="@+id/close_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/close"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!-- Patient Name Field -->
-    <EditText
-        android:id="@+id/patient_name"
-        android:layout_width="match_parent"
+    <!-- Input Fields Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/patient_name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        tools:ignore="Autofill" />
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Doctor Name Field -->
-    <EditText
-        android:id="@+id/doctor_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/doctor_name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        tools:ignore="Autofill" />
+        <!-- Patient Name Field -->
+        <EditText
+            android:id="@+id/patient_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/patient_name"
+            android:inputType="textPersonName"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="Autofill" />
 
-                <!-- Appointment Date Field -->
-    <EditText
-        android:id="@+id/appointment_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="@string/appointment_date"
-        android:inputType="datetime"
-        android:minHeight="48dp"
-        tools:ignore="Autofill" />
+        <!-- Doctor Name Field -->
+        <EditText
+            android:id="@+id/doctor_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/doctor_name"
+            android:inputType="textPersonName"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toBottomOf="@id/patient_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
 
-                <!-- Appointment Status Dropdown -->
-    <Spinner
-        android:id="@+id/appointment_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:entries="@array/appointment_status_options"
-        android:hint="@string/appointment_status"
-        android:minHeight="48dp" />
+        <!-- Appointment Date Field -->
+        <EditText
+            android:id="@+id/appointment_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/appointment_date"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:focusable="false"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toBottomOf="@id/doctor_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
 
-                <!-- Notes Field -->
-    <EditText
-        android:id="@+id/appointment_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/appointment_notes"
-        android:inputType="textShortMessage"
-        android:minHeight="48dp"
-        tools:ignore="Autofill" />
+        <!-- Appointment Status Dropdown -->
+        <Spinner
+            android:id="@+id/appointment_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/appointment_status_options"
+            android:hint="@string/appointment_status"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toBottomOf="@id/appointment_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
 
-                <!-- Appointment Location Field -->
-    <EditText
-        android:id="@+id/appointment_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/appointment_location"
-        android:inputType="textShortMessage"
-        android:minHeight="48dp"
-        tools:ignore="Autofill" />
+        <!-- Notes Field -->
+        <EditText
+            android:id="@+id/appointment_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/appointment_notes"
+            android:inputType="textShortMessage"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toBottomOf="@id/appointment_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
 
-                <!-- Add PDF Button-->
-                <Button
-                    android:id="@+id/button_add_pdf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/add_pdf"
-                    android:layout_gravity="center"/>
+        <!-- Appointment Location Field -->
+        <EditText
+            android:id="@+id/appointment_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/appointment_location"
+            android:inputType="textShortMessage"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toBottomOf="@id/appointment_notes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
 
+        <!-- Add PDF Button -->
+        <Button
+            android:id="@+id/button_add_pdf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_pdf"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/appointment_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-                <!-- Save Appointment Button -->
-                <Button
-                    android:id="@+id/save_event_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/save_event" />
-            </LinearLayout>
+        <!-- Save Appointment Button -->
+        <Button
+            android:id="@+id/save_event_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/save_event"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/button_add_pdf"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample backup rules file; uncomment and customize as necessary.
-   See https://developer.android.com/guide/topics/data/autobackup
-   for details.
-   Note: This file is ignored for devices older that API 31
-   See https://developer.android.com/about/versions/12/backup-restore
--->
+<?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <!-- Include user preferences but exclude authentication tokens -->
+    <include domain="sharedpref" path="user_settings.xml"/>
+    <exclude domain="sharedpref" path="auth_tokens.xml"/>
+
+    <!-- Include SQLite database backup -->
+    <include domain="database" path="AppointmentNow.db"/>
+    
+    <!-- Exclude cache database if unnecessary -->
+    <exclude domain="database" path="temp_data.db"/>
+
+    <!-- Backup exported files like PDFs -->
+    <include domain="external" path="AppointmentNow/exports/"/>
 </full-backup-content>

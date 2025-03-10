@@ -1,29 +1,28 @@
 /*
-    Author: Conor Steward
-    Contact: 1conorsteward@gmail.com
-    Date Created: 10/8/24
-    Version: 2.1
-
-    EventAdapter.java
-
-    This class provides a custom adapter to populate and manage a list of `Event` objects in a
-    `ListView` or `GridView` within the AppointmentNow application. The adapter facilitates the
-    binding of event data (e.g., patient name, doctor name, status) to individual views (e.g.,
-    TextViews, ImageButtons) in the list, allowing for dynamic event management.
-
-    Key Features:
-    - Displays a list of events with key details such as patient name, doctor name, and event status.
-    - Provides functionality to edit and delete events from the EventDisplayActivity or HistoryActivity.
-    - Implements click listeners for each event item to open detailed views and handle user actions.
-
-    Adapter Overview:
-    - Extends `BaseAdapter`, a common adapter class in Android used to bind data to a `ListView` or
-      `GridView`.
-    - Uses the `getView()` method to define how each row of the list should be displayed.
-    - Supports event editing and deletion through interaction with the corresponding Activity (EventDisplayActivity, HistoryActivity).
-
-    Issues: No known issues
-*/
+ *     Appointment Now - Event Adapter (RecyclerView)
+ *     Author: Conor Steward
+ *     Contact: 1conorsteward@gmail.com
+ *     Date Created: 10/8/24
+ *     Last Updated: 03/07/25
+ *     Version: 2.2
+ *
+ *     Description:
+ *     This class provides a RecyclerView adapter for displaying a list of `Event` objects 
+ *     in the AppointmentNow application.
+ *     
+ *     Features:
+ *     - Uses RecyclerView for better performance over ListView.
+ *     - Implements ViewHolder pattern to minimize redundant view binding.
+ *     - Supports event editing and deletion via buttons.
+ *     - Implements click listeners for opening event details.
+ * 
+ *     Dependencies:
+ *     - `Event.java` (Event model class)
+ *     - `EventDisplayActivity.java`, `HistoryActivity.java` (Managing UI interactions)
+ * 
+ *     Issues:
+ *     - No known issues.
+ */
 
 package com.example.appointmentnow_steward;
 
@@ -32,87 +31,114 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import java.util.ArrayList;
 
-public class EventAdapter extends BaseAdapter {
-    private final Context context;            // The context of the calling Activity or Fragment
-    private final ArrayList<Event> events;    // The list of events to be displayed
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    // Constructor to initialize the adapter with context and event list
-    public EventAdapter(Context context, ArrayList<Event> events) {
-        this.context = context;               // Set the context (either EventDisplayActivity or HistoryActivity)
-        this.events = events;                 // Set the list of events to display in the ListView
+import java.util.List;
+
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+
+    private final Context context;   // The context of the calling Activity or Fragment
+    private final List<Event> events; // List of events to display
+
+    /**
+     * Constructor for initializing the adapter with context and event list.
+     *
+     * @param context The calling activity or fragment.
+     * @param events  The list of events to be displayed.
+     */
+    public EventAdapter(Context context, List<Event> events) {
+        this.context = context;
+        this.events = events;
     }
 
-    // Returns the total number of events
+    /**
+     * Inflates the event item layout when the ViewHolder is created.
+     */
+    @NonNull
     @Override
-    public int getCount() {
-        return events.size();                 // Return the size of the event list
+    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false);
+        return new EventViewHolder(view);
     }
 
-    // Returns the event object at a specific position in the list
+    /**
+     * Binds data to the ViewHolder for each event in the RecyclerView.
+     */
     @Override
-    public Object getItem(int position) {
-        return events.get(position);          // Return the event at the specified position
+    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+        Event event = events.get(position);
+
+        // Set event details
+        holder.eventTitle.setText(event.getPatientName());
+        holder.eventSubtitle.setText(event.getDoctorName());
+        holder.eventStatus.setText(event.getStatus());
+
+        // Set up event click listeners
+        holder.itemView.setOnClickListener(v -> openEventDetails(event));
+        holder.editButton.setOnClickListener(v -> openEditEventDialog(event, position));
+        holder.deleteButton.setOnClickListener(v -> showDeleteConfirmation(event.getId(), position));
     }
 
-    // Returns the row ID for the specific position (in this case, just the position itself)
+    /**
+     * Returns the total number of events.
+     */
     @Override
-    public long getItemId(int position) {
-        return position;                      // Return the position as the row ID
+    public int getItemCount() {
+        return events.size();
     }
 
-    // Inflates and populates the view for each row in the list
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // If there is no reusable view, inflate a new one using event_item.xml layout
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.event_item, parent, false);
+    /**
+     * Opens EventDetailActivity to show details of the selected event.
+     */
+    private void openEventDetails(Event event) {
+        Intent intent = new Intent(context, EventDetailActivity.class);
+        intent.putExtra("event_id", event.getId());
+        context.startActivity(intent);
+    }
+
+    /**
+     * Handles event editing based on the calling context.
+     */
+    private void openEditEventDialog(Event event, int position) {
+        if (context instanceof EventDisplayActivity) {
+            ((EventDisplayActivity) context).openAddOrEditEventDialog(event, position);
+        } else if (context instanceof HistoryActivity) {
+            ((HistoryActivity) context).openEditEventDialog(event, position);
         }
+    }
 
-        // Get the event at the current position in the list
-        Event event = (Event) getItem(position);
+    /**
+     * Shows a delete confirmation dialog based on the calling context.
+     */
+    private void showDeleteConfirmation(long eventId, int position) {
+        if (context instanceof EventDisplayActivity) {
+            ((EventDisplayActivity) context).showDeleteConfirmationDialog(position);
+        } else if (context instanceof HistoryActivity) {
+            ((HistoryActivity) context).showDeleteConfirmationDialog(eventId, position);
+        }
+    }
 
-        // Initialize UI components for the list item view (TextViews and ImageButtons)
-        TextView eventTitle = convertView.findViewById(R.id.event_title);            // Display patient's name as title
-        TextView eventSubtitle = convertView.findViewById(R.id.event_subtitle);      // Display doctor's name as subtitle
-        TextView eventStatus = convertView.findViewById(R.id.event_status);          // Display the event's status
-        ImageButton editButton = convertView.findViewById(R.id.edit_event_button);   // Edit button for each event
-        ImageButton deleteButton = convertView.findViewById(R.id.delete_event_button); // Delete button for each event
+    /**
+     * ViewHolder pattern for efficient view reuse.
+     */
+    static class EventViewHolder extends RecyclerView.ViewHolder {
+        final TextView eventTitle, eventSubtitle, eventStatus;
+        final ImageButton editButton, deleteButton;
 
-        // Set data for each UI component (Patient Name, Doctor Name, Status)
-        eventTitle.setText(event.getPatientName());         // Set the patient's name as the title
-        eventSubtitle.setText(event.getDoctorName());       // Set the doctor's name as the subtitle
-        eventStatus.setText(event.getStatus());             // Set the event status (e.g., Scheduled, Completed)
-
-        // Set a click listener on the entire view to open EventDetailActivity when the item is clicked
-        convertView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EventDetailActivity.class);          // Create an intent for EventDetailActivity
-            intent.putExtra("event_id", event.getId());                              // Pass the event ID to the detail activity
-            context.startActivity(intent);                                           // Start the detail activity
-        });
-
-        // Edit event functionality: opens the dialog for editing the event based on the context
-        editButton.setOnClickListener(v -> {
-            if (context instanceof EventDisplayActivity) {
-                ((EventDisplayActivity) context).openAddOrEditEventDialog(event, position); // Open edit dialog in EventDisplayActivity
-            } else if (context instanceof HistoryActivity) {
-                ((HistoryActivity) context).openEditEventDialog(event, position);         // Open edit dialog in HistoryActivity
-            }
-        });
-
-        // Delete event functionality: shows a delete confirmation dialog based on the context
-        deleteButton.setOnClickListener(v -> {
-            if (context instanceof EventDisplayActivity) {
-                ((EventDisplayActivity) context).showDeleteConfirmationDialog(position);   // Show delete dialog in EventDisplayActivity
-            } else if (context instanceof HistoryActivity) {
-                ((HistoryActivity) context).showDeleteConfirmationDialog(event.getId(), position); // Show delete dialog in HistoryActivity
-            }
-        });
-
-        return convertView; // Return the fully constructed view for this row
+        /**
+         * Constructor that binds UI components from the event_item layout.
+         */
+        EventViewHolder(View view) {
+            super(view);
+            eventTitle = view.findViewById(R.id.event_title);
+            eventSubtitle = view.findViewById(R.id.event_subtitle);
+            eventStatus = view.findViewById(R.id.event_status);
+            editButton = view.findViewById(R.id.edit_event_button);
+            deleteButton = view.findViewById(R.id.delete_event_button);
+        }
     }
 }
